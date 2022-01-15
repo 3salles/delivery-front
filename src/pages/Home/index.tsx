@@ -1,4 +1,5 @@
-import { Box, Flex, Heading, HStack, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Text, Wrap } from "@chakra-ui/react";
+import { ProductCart } from "../../components/common/ProductCard";
 import { AppLayout } from "../../layouts/AppLayout";
 
 
@@ -6,7 +7,9 @@ import { AppLayout } from "../../layouts/AppLayout";
 export default function Home () {
   return (
     <AppLayout >
-      <Text>Home</Text>
+      <Wrap>
+        <ProductCart />
+      </Wrap>
     </AppLayout>
   )
 }
