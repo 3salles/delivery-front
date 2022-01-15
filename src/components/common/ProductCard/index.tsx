@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import {BsCartPlusFill} from 'react-icons/bs'
+import { BsCartPlusFill } from "react-icons/bs";
 import { categoryColor } from "../../../helpers/categoryColor";
 import { Category, Product } from "../../../models";
 
@@ -19,7 +19,7 @@ interface ProductCartProps {
   category: Category;
 }
 
-export function ProductCart({product, category}: ProductCartProps ) {
+export function ProductCart({ product, category }: ProductCartProps) {
   return (
     <WrapItem>
       <Flex p={50} w="full" alignItems="center" justifyContent="center">
@@ -42,7 +42,12 @@ export function ProductCart({product, category}: ProductCartProps ) {
 
           <Box p="6">
             <Box d="flex" alignItems="baseline">
-              <Badge rounded="full" px="2" fontSize="0.8em" colorScheme={categoryColor(category)}>
+              <Badge
+                rounded="full"
+                px="2"
+                fontSize="0.8em"
+                colorScheme={categoryColor(category)}
+              >
                 {category}
               </Badge>
             </Box>
@@ -57,15 +62,12 @@ export function ProductCart({product, category}: ProductCartProps ) {
               >
                 {product?.name}
               </Text>
-              <Box
-                fontSize="xl"
-                color="gray.800"
-              >
-                <Box as="span" color={"gray.600"} fontSize="lg">
-                  R$
-                </Box>
-                {product?.price?.toFixed(2)}
-              </Box>
+              <Text fontSize="xl" color="gray.800">
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(product?.price)}
+              </Text>
             </Flex>
             <ButtonGroup
               mt="4"
@@ -82,7 +84,7 @@ export function ProductCart({product, category}: ProductCartProps ) {
                 icon={<BsCartPlusFill />}
                 variant="solid"
                 color="white"
-                bg='#02AAB0'
+                bg="#02AAB0"
                 _hover={{ opacity: 0.8 }}
                 borderTop="lg"
               />
