@@ -3,7 +3,6 @@ import {
   Box,
   Image,
   Badge,
-  useColorModeValue,
   WrapItem,
   Button,
   ButtonGroup,
@@ -12,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 import {BsCartPlusFill} from 'react-icons/bs'
+import { categoryColor } from "../../../helpers/categoryColor";
 import { Category, Product } from "../../../models";
 
 interface ProductCartProps {
@@ -42,7 +42,7 @@ export function ProductCart({product, category}: ProductCartProps ) {
 
           <Box p="6">
             <Box d="flex" alignItems="baseline">
-              <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
+              <Badge rounded="full" px="2" fontSize="0.8em" colorScheme={categoryColor(category)}>
                 {category}
               </Badge>
             </Box>
