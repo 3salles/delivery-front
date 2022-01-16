@@ -35,6 +35,7 @@ Foi proposto a criação de um projeto em Node.js em REST que simulasse um siste
   - [x] Solicitar a entrega
 
 De forma que este projeto é o cliente (front-end) da aplicação usando React.
+Você pode ver a demo do projeto [aqui](https://delivery-front-ntyhgivmc-3salles.vercel.app).
 
 ## :bricks: Instalação
 
@@ -77,7 +78,6 @@ $ yarn start
 
 A aplicação funcionará em `http://localhost:3000`.
 
-Podendo ser visto em deploy no seguinte link: [https://market-sd.herokuapp.com](https://market-sd.herokuapp.com).
 
 🚨 O back-end deste projeto encontra-se aqui [delivery-rest](https://github.com/3salles/delivery-rest).
 
