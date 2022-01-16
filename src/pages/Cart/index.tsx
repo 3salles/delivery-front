@@ -9,16 +9,22 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-
-
+import { useCart } from "../../hooks/useCart";
 
 import { AppLayout } from "../../layouts/AppLayout";
+
 import { ContentTable } from "./components/ContentTable";
 
 export default function Cart() {
+  const { orders } = useCart();
+
+  const total = orders?.reduce((sumTotal, product) => {
+    return sumTotal + product?.price * product?.amount!;
+  }, 0);
+
   return (
     <AppLayout>
-      <Box height="82vh">
+      <Box height={orders?.length > 3 ? 'full' : '82vh'}>
         <Table mt="4" variant="simple" bg="white" rounded="md">
           <Thead>
             <Tr>
@@ -28,17 +34,25 @@ export default function Cart() {
             </Tr>
           </Thead>
           <Tbody>
-            <ContentTable />
+            {orders?.map((order) => (
+              <ContentTable key={order?.id} product={order} />
+            ))}
           </Tbody>
           <Tfoot>
             <Tr>
               <Th>
-                <Button colorScheme='teal'>Finalizar pedido</Button>
+                <Button colorScheme="teal">Finalizar pedido</Button>
               </Th>
               <Th />
               <Th>
                 <Text>
-                  Total <Text as="span" fontSize='xl'>R$ 500</Text>
+                  Total{" "}
+                  <Text as="span" fontSize="xl">
+                    {new Intl.NumberFormat("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    }).format(total)}
+                  </Text>
                 </Text>
               </Th>
             </Tr>

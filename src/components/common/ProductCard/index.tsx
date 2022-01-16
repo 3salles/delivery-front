@@ -6,12 +6,12 @@ import {
   WrapItem,
   Button,
   ButtonGroup,
-  IconButton,
   Text,
 } from "@chakra-ui/react";
 
 import { BsCartPlusFill } from "react-icons/bs";
 import { categoryColor } from "../../../helpers/categoryColor";
+import { useCart } from "../../../hooks/useCart";
 import { Category, Product } from "../../../models";
 
 interface ProductCartProps {
@@ -19,13 +19,26 @@ interface ProductCartProps {
   category: Category;
 }
 
+interface CartItemsAmount {
+  [key: number]: number;
+}
+
 export function ProductCart({ product, category }: ProductCartProps) {
+  const { addOrder, orders } = useCart();
+
+  const cartItemsAmount = orders.reduce((sumAmount, product) => {
+    const newSumAmount = { ...sumAmount };
+    newSumAmount[product?.id] = product?.amount!;
+
+    return newSumAmount;
+  }, {} as CartItemsAmount);
+
   return (
     <WrapItem>
       <Flex p={50} w="full" alignItems="center" justifyContent="center">
         <Box
           bg="white"
-          maxW="sm"
+          maxW={300}
           borderWidth="1px"
           rounded="lg"
           shadow="lg"
@@ -78,16 +91,20 @@ export function ProductCart({ product, category }: ProductCartProps) {
               _hover={{ opacity: 0.8 }}
               isAttached
               rounded="lg"
+              onClick={() => addOrder(product?.id, category)}
             >
-              <IconButton
-                aria-label="Adicionar no carrinho"
-                icon={<BsCartPlusFill />}
+              <Button
+                rightIcon={<BsCartPlusFill />}
+                con={<BsCartPlusFill />}
                 variant="solid"
                 color="white"
                 bg="#02AAB0"
                 _hover={{ opacity: 0.8 }}
                 borderTop="lg"
-              />
+              >
+                {cartItemsAmount[product.id] || 0}
+              </Button>
+
               <Button
                 variant="solid"
                 color="white"
