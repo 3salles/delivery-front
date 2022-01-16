@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Category, Product } from "../models";
+import { Address, Category, Product } from "../models";
 import { api } from "../services/api";
 
 interface CartProviderProps {
@@ -25,6 +25,7 @@ interface CartContextData {
   orders: Product[];
   addOrder: (id: number, category: Category) => Promise<void>;
   removeProduct: (productId: number) => void;
+  createAddress: (address: Address) => void;
   finishPayment: () => void;
   updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void;
 }
@@ -148,7 +149,26 @@ export function CartProvider({ children }: CartProviderProps) {
     setOrders([])
   }
 
-  return (
+  const createAddress = (data: Address) => {
+    try {
+      api.post('/address', {
+        address: data?.address,
+        complement: data?.complement,
+        neighborhood: data?.neighborhood,
+        cep: data?.cep,
+        city: data?.city,
+        state: data?.state,
+      })
+    } catch {
+      toast({
+        title: "Problema!",
+        description: "Aconteceu algum erro, tente mais tarde!",
+        status: "error",
+      });
+    }
+  }
+
+  return ( 
     <CartContext.Provider
       value={{
         drinks,
@@ -158,6 +178,7 @@ export function CartProvider({ children }: CartProviderProps) {
         addOrder,
         removeProduct,
         updateProductAmount,
+        createAddress,
         finishPayment,
       }}
     >

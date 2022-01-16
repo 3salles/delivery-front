@@ -9,6 +9,7 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
+
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 
@@ -24,6 +25,12 @@ export default function Cart() {
   const total = orders?.reduce((sumTotal, product) => {
     return sumTotal + product?.price * product?.amount!;
   }, 0);
+
+  function handleFinishPayment () {
+    if (total > 0){
+      navigate('/payment')
+    } 
+  }
 
   return (
     <AppLayout>
@@ -44,7 +51,7 @@ export default function Cart() {
           <Tfoot>
             <Tr>
               <Th>
-                <Button colorScheme="teal" onClick={() => navigate('/payment')}>Finalizar pedido</Button>
+                <Button colorScheme="teal" onClick={handleFinishPayment}>Finalizar pedido</Button>
               </Th>
               <Th />
               <Th>
