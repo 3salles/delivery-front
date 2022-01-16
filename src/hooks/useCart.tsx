@@ -25,6 +25,7 @@ interface CartContextData {
   orders: Product[];
   addOrder: (id: number, category: Category) => Promise<void>;
   removeProduct: (productId: number) => void;
+  finishPayment: () => void;
   updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void;
 }
 
@@ -142,10 +143,23 @@ export function CartProvider({ children }: CartProviderProps) {
       });
     }
   };
+  
+  const finishPayment = () => {
+    setOrders([])
+  }
 
   return (
     <CartContext.Provider
-      value={{ drinks, food, snacks, orders, addOrder, removeProduct, updateProductAmount }}
+      value={{
+        drinks,
+        food,
+        snacks,
+        orders,
+        addOrder,
+        removeProduct,
+        updateProductAmount,
+        finishPayment,
+      }}
     >
       {children}
     </CartContext.Provider>

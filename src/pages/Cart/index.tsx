@@ -9,6 +9,7 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 
 import { AppLayout } from "../../layouts/AppLayout";
@@ -17,6 +18,8 @@ import { ContentTable } from "./components/ContentTable";
 
 export default function Cart() {
   const { orders } = useCart();
+
+  const navigate = useNavigate();
 
   const total = orders?.reduce((sumTotal, product) => {
     return sumTotal + product?.price * product?.amount!;
@@ -41,7 +44,7 @@ export default function Cart() {
           <Tfoot>
             <Tr>
               <Th>
-                <Button colorScheme="teal">Finalizar pedido</Button>
+                <Button colorScheme="teal" onClick={() => navigate('/payment')}>Finalizar pedido</Button>
               </Th>
               <Th />
               <Th>
